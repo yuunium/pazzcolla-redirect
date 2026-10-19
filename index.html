@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>アプリを開く</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        background: #f5f7fb;
+        color: #172033;
+        font-family: system-ui, sans-serif;
+      }
+      main { max-width: 440px; padding: 32px 24px; text-align: center; }
+      h1 { font-size: 24px; }
+      p { line-height: 1.8; }
+      nav { display: grid; gap: 12px; margin-top: 24px; }
+      a {
+        padding: 16px 24px;
+        border-radius: 12px;
+        background: #245cdb;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a:hover { background: #1948b4; }
+      a:focus-visible { outline: 3px solid #172033; outline-offset: 4px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>アプリを開く</h1>
+      <p id="message" role="status">お使いの端末に合わせてリンクを選んでください。</p>
+      <!-- 仮リンク：公開前に、以下2つのhrefを実際のURLに変更してください。 -->
+      <nav aria-label="ダウンロード先">
+        <a id="ios-link" href="https://example.com/ios">iOSはこちら</a>
+        <a id="android-link" href="https://example.com/android">Androidはこちら</a>
+      </nav>
+      <noscript><p>自動転送にはJavaScriptが必要です。上のリンクから進んでください。</p></noscript>
+    </main>
+    <script>
+      const userAgent = navigator.userAgent;
+      const isAndroid = /Android/i.test(userAgent);
+      // Android以外（iPhone・iPad・Mac・Windows PCなど）はiOS用リンクへ転送。
+      const target = isAndroid
+        ? document.getElementById("android-link")
+        : document.getElementById("ios-link");
+
+      if (target) {
+        document.getElementById("message").textContent =
+          "移動しています。自動で移動しない場合は、下のリンクを押してください。";
+        // 戻る操作でこのページから再転送されないよう、履歴を置き換える。
+        window.location.replace(target.href);
+      }
+    </script>
+  </body>
+</html>
