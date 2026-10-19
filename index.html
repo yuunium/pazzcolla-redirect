@@ -17,26 +17,28 @@
       main { max-width: 440px; padding: 32px 24px; text-align: center; }
       h1 { font-size: 24px; }
       p { line-height: 1.8; }
-      nav { display: grid; gap: 12px; margin-top: 24px; }
-      a {
-        padding: 16px 24px;
-        border-radius: 12px;
-        background: #245cdb;
-        color: white;
-        text-decoration: none;
-        font-weight: 600;
+      nav { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; }
+      nav a {
+        display: block;
+        width: 126px; /* ボタンの横幅はここで調整 */
+        min-width: 0;
       }
-      a:hover { background: #1948b4; }
+      nav a img { display: block; width: 100%; height: auto; }
+      a:hover { opacity: 0.85; }
       a:focus-visible { outline: 3px solid #172033; outline-offset: 4px; }
     </style>
   </head>
   <body>
     <main>
-      <h1>アプリを開く</h1>
-      <p id="message" role="status">お使いの端末に合わせてリンクを選んでください。</p>
+      <h1>リダイレクトします</h1>
+      <p id="message" role="status">ストアへ自動遷移しない場合はリンクを選んでください。</p>
       <nav aria-label="ダウンロード先">
-        <a id="ios-link" href="https://apps.apple.com/jp/app/%E3%81%B1%E3%81%9A%E3%81%93%E3%82%89/id6751093839">iOSはこちら</a>
-        <a id="android-link" href="https://play.google.com/store/apps/details?id=com.yuunium.pazzcolla">Androidはこちら</a>
+        <a id="ios-link" href="https://apps.apple.com/jp/app/%E3%81%B1%E3%81%9A%E3%81%93%E3%82%89/id6751093839">
+          <img src="./button_iPhone.png" alt="App Storeからダウンロード" />
+        </a>
+        <a id="android-link" href="https://play.google.com/store/apps/details?id=com.yuunium.pazzcolla">
+          <img src="./button_Android.png" alt="Google Playで手に入れよう" />
+        </a>
       </nav>
       <noscript><p>自動転送にはJavaScriptが必要です。上のリンクから進んでください。</p></noscript>
     </main>
@@ -44,7 +46,7 @@
       const userAgent = navigator.userAgent;
       const isAndroid = /Android/i.test(userAgent);
       // Android以外（iPhone・iPad・Mac・Windows PCなど）はiOS用リンクへ転送。
-      const target = isAndroid
+       const target = isAndroid
         ? document.getElementById("android-link")
         : document.getElementById("ios-link");
 
